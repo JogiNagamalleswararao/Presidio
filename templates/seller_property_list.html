@@ -1,0 +1,188 @@
+<!-- seller_property_list.html -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Seller Properties</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<style>
+    
+    /* styles.css */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #f4f4f4;
+        color: #333;
+    }
+    
+    .container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 1rem;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    h1 {
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+    
+    form {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .form-group {
+        margin-bottom: 1rem;
+    }
+    
+    /* styles.css (continued) */
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+    }
+    
+    input,
+    textarea {
+        display: block;
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+    
+    .error-message {
+        color: red;
+        font-size: 0.9rem;
+        margin-top: 0.25rem;
+    }
+    
+    .btn {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+    
+    .btn:hover {
+        background-color: #555;
+    }
+    
+    .btn-danger {
+        background-color: #dc3545;
+    }
+    
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+    
+    .property-list {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .property-item {
+        background-color: #f9f9f9;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .property-item h2 {
+        margin-bottom: 0.5rem;
+    }
+    
+    .property-item p {
+        margin-bottom: 0.25rem;
+    }
+    
+    .actions {
+        margin-top: 1rem;
+    }
+    
+    .actions .btn {
+        margin-right: 0.5rem;
+    }
+    
+    .seller-details {
+        margin-top: 1rem;
+        padding: 1rem;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .seller-details p {
+        margin-bottom: 0.5rem;
+    }
+    
+    .pagination {
+        margin-top: 1rem;
+        text-align: center;
+    }
+    
+    .pagination a,
+    .pagination span {
+        display: inline-block;
+        padding: 0.5rem;
+        margin: 0 0.25rem;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        text-decoration: none;
+        color: #333;
+    }
+    
+    .pagination a:hover {
+        background-color: #f4f4f4;
+    }
+    
+    .pagination .current-page {
+        background-color: #333;
+        color: #fff;
+        border-color: #333;
+    }
+        </style>
+<body>
+    <div class="container">
+        <h1>Your Properties</h1>
+        {% if properties %}
+            <ul class="property-list">
+                {% for property in properties %}
+                    <li class="property-item">
+                        <h2>{{ property.place }}</h2>
+                        <p>Area: {{ property.area }} sq.ft.</p>
+                        <p>Bedrooms: {{ property.bedrooms }}</p>
+                        <p>Bathrooms: {{ property.bathrooms }}</p>
+                        <p>Hospitals Nearby: {{ property.hospitals_nearby }}</p>
+                        <p>Colleges Nearby: {{ property.colleges_nearby }}</p>
+                        <div class="actions">
+                            <a href="{% url 'update_property' property.id %}" class="btn">Update</a>
+                            <a href="{% url 'delete_property' property.id %}" class="btn btn-danger">Delete</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>You have not listed any properties yet.</p>
+        {% endif %}
+        <a href="{% url 'add_property' %}" class="btn">Add Property</a>
+    </div>
+</body>
+</html>
